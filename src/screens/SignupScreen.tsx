@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import SignInScreen from "./SignInScreen";
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const LeftDiv = styled.img`
 `;
 
 const RightDiv = styled.div`
-  background-color: pink;
+  /* background-color: pink; */
   width: 50vw;
   height: 100vh;
 `;
@@ -22,7 +23,9 @@ const SignupScreen: React.FC = () => {
   return (
     <Container>
       <LeftDiv src={require("../assets/images/launchBG.png")} />
-      <RightDiv />
+      <RightDiv>
+        <SignInScreen />
+      </RightDiv>
     </Container>
   );
 };
