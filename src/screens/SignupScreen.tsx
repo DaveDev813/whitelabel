@@ -141,7 +141,7 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
             align="center"
             color="textSecondary"
             component="p"
-            style={{ marginTop: "30px" }}
+            style={{ marginTop: "30px", cursor: "pointer" }}
             onClick={() => history.push(`/signin`)}
           >
             Already have an account? Sign in.
