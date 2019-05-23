@@ -9,6 +9,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <div className="App">
         <Switch>
+          <Route exact path="/" component={SignInScreen} />
           <Route exact path="/signup" component={SignupScreen} />
           <Route exact path="/signin" component={SignInScreen} />
         </Switch>

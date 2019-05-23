@@ -5,25 +5,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Theme, createStyles } from "@material-ui/core";
-import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { RouteComponentProps, withRouter } from "react-router";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const LeftDiv = styled.img`
-  width: 50vw;
-  height: 100vh;
-`;
-
-const RightDiv = styled.div`
-  width: 50vw;
-  height: 100vh;
-`;
+import LaunchContainer from "../containers/LaunchContainer";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -68,121 +53,114 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   history
 }) => {
   return (
-    <Container>
-      <LeftDiv src={require("../assets/images/launchBG.png")} />
-      <RightDiv>
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            REGASCO
-          </Typography>
+    <LaunchContainer>
+      <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          REGASCO
+        </Typography>
+        <Typography
+          className={classes.subHeader}
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Please complete to create your account
+        </Typography>
+        <form className={classes.form}>
+          <Grid container spacing={24}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="firstName"
+                name="firstName"
+                label="First name"
+                fullWidth
+                autoComplete="fname"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="lastName"
+                name="lastName"
+                label="Last name"
+                fullWidth
+                autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="username"
+                name="username"
+                label="Username"
+                fullWidth
+                autoComplete="Username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="email"
+                name="email"
+                label="Email"
+                fullWidth
+                autoComplete="Email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                name="password"
+                type="password"
+                id="password"
+                label="Password"
+                autoComplete="current-password"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                name="confirmpassword"
+                type="password"
+                id="confirmpassword"
+                label="Confirm Password"
+                autoComplete="current-password"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox color="secondary" name="saveAddress" value="yes" />
+                }
+                label="I agree with terms and conditions"
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign up
+          </Button>
           <Typography
             className={classes.subHeader}
             align="center"
             color="textSecondary"
             component="p"
+            style={{ marginTop: "30px" }}
+            onClick={() => history.push(`/signin`)}
           >
-            Please complete to create your account
+            Already have an account? Sign in.
           </Typography>
-          <form className={classes.form}>
-            <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="firstName"
-                  name="firstName"
-                  label="First name"
-                  fullWidth
-                  autoComplete="fname"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="lastName"
-                  name="lastName"
-                  label="Last name"
-                  fullWidth
-                  autoComplete="lname"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="username"
-                  name="username"
-                  label="Username"
-                  fullWidth
-                  autoComplete="Username"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  id="email"
-                  name="email"
-                  label="Email"
-                  fullWidth
-                  autoComplete="Email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  name="password"
-                  type="password"
-                  id="password"
-                  label="Password"
-                  autoComplete="current-password"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  name="confirmpassword"
-                  type="password"
-                  id="confirmpassword"
-                  label="Confirm Password"
-                  autoComplete="current-password"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} style={{ textAlign: "left" }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="secondary"
-                      name="saveAddress"
-                      value="yes"
-                    />
-                  }
-                  label="I agree with terms and conditions"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign up
-            </Button>
-            <Typography
-              className={classes.subHeader}
-              align="center"
-              color="textSecondary"
-              component="p"
-              style={{ marginTop: "30px" }}
-              onClick={() => history.push(`/signin`)}
-            >
-              Already have an account? Sign in.
-            </Typography>
-          </form>
-        </div>
-      </RightDiv>
-    </Container>
+        </form>
+      </div>
+    </LaunchContainer>
   );
 };
 
