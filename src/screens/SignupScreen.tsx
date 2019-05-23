@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { RouteComponentProps, withRouter } from "react-router";
 import LaunchContainer from "../containers/LaunchContainer";
+import LaunchTitle from "../components/LaunchTitle";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,9 +43,6 @@ const styles = (theme: Theme) =>
     submit: {
       marginTop: theme.spacing.unit * 3,
       width: "185px"
-    },
-    subHeader: {
-      marginTop: "12px"
     }
   });
 
@@ -55,17 +53,7 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   return (
     <LaunchContainer>
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          REGASCO
-        </Typography>
-        <Typography
-          className={classes.subHeader}
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Please complete to create your account
-        </Typography>
+        <LaunchTitle subtitle="Please complete to create your account" />
         <form className={classes.form}>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>

@@ -7,10 +7,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Theme, createStyles } from "@material-ui/core";
 import LaunchContainer from "../containers/LaunchContainer";
+import LaunchTitle from "../components/LaunchTitle";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -54,9 +54,7 @@ function SignInScreen(props: { classes: any }) {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            REGASCO
-          </Typography>
+          <LaunchTitle />
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
