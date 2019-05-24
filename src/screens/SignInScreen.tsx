@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { Theme, createStyles, Grid } from "@material-ui/core";
+import { Theme, createStyles, Grid, Link } from "@material-ui/core";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -53,7 +53,7 @@ function SignInScreen(props: { classes: any }) {
       <CssBaseline />
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h5">
-          REGASCO
+          R E G A S C O
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
@@ -73,28 +73,26 @@ function SignInScreen(props: { classes: any }) {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Grid container direction="row" justify="space-between">
-
+          <Link>
+            Forgot Password
+          </Link>
+          <Grid container direction="row" alignItems="flex-end" justify="space-between">
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
               >
                 Login
               </Button>
-              
               <Button
                 type="submit"
-                fullWidth
-                variant="contained"
+                variant="outlined"
                 color="default"
                 className={classes.submit}
               >
                 Sign up
               </Button>
-
           </Grid>
         </form>
       </Paper>
