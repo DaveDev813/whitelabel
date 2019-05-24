@@ -7,9 +7,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { Theme, createStyles, Grid, Link } from "@material-ui/core";
+import { Theme, createStyles, Grid, Link, Typography } from "@material-ui/core";
+import LaunchContainer from "../containers/LaunchContainer";
+import LaunchTitle from "../components/LaunchTitle";
 
 const styles = (theme: Theme) =>
   createStyles({
