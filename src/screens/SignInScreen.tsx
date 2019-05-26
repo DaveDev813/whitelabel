@@ -3,7 +3,17 @@ import { RouteComponentProps, withRouter } from "react-router";
 import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
 
-import { Grid, TextField, FormControlLabel, Checkbox, Button, Typography, withStyles, createStyles, Theme, Link } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Typography,
+  withStyles,
+  createStyles,
+  Theme
+} from "@material-ui/core";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -23,11 +33,11 @@ const styles = (theme: Theme) =>
       width: 185
     },
     forgot_password: {
-      color: ''
+      color: ""
     }
   });
 
-const Signin: React.FC<{ classes: any } & RouteComponentProps> = ({
+const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   classes,
   history
 }) => {
@@ -58,32 +68,45 @@ const Signin: React.FC<{ classes: any } & RouteComponentProps> = ({
                 autoComplete="password"
               />
             </Grid>
-            
           </Grid>
-          
-          <Grid container item xs={12} direction="row" justify="space-between" alignItems="center">
+
+          <Grid
+            container
+            item
+            xs={12}
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            spacing={24}
+          >
             <Grid item>
               <FormControlLabel
-                  control={
-                    <Checkbox color="primary" name="saveAddress" value="yes"/>
-                  }
-                  label="Remember Me"
-                />
+                control={
+                  <Checkbox color="primary" name="saveAddress" value="yes" />
+                }
+                label="Remember Me"
+              />
             </Grid>
-            <Grid item >
+            <Grid item>
               <Typography
-                style={{cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
+                onClick={() => history.push(`/forgot-password`)}
               >
                 Forgot Password
               </Typography>
             </Grid>
           </Grid>
-          
-          <Grid container direction="row" justify="space-between" alignItems="baseline">
+
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="baseline"
+            spacing={24}
+          >
             <Grid item>
               <Button
                 type="submit"
-                // fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.button}
@@ -93,25 +116,26 @@ const Signin: React.FC<{ classes: any } & RouteComponentProps> = ({
             </Grid>
             <Grid item>
               <Button
-                type="submit"
-                // fullWidth
+                type="button"
                 variant="outlined"
                 color="default"
-                style={{color: '#3F51B5', backgroundColor: '#FFFFFF', outlineColor: '#3F51B5'}}
+                style={{
+                  color: "#3F51B5",
+                  backgroundColor: "#FFFFFF",
+                  outlineColor: "#3F51B5"
+                }}
                 className={classes.button}
+                onClick={() => history.push(`/signup`)}
               >
                 Sign up
               </Button>
             </Grid>
           </Grid>
-          
-          <Grid>
-            
-          </Grid>
+          <Grid />
         </form>
       </div>
     </LaunchContainer>
   );
 };
 
-export default withRouter(withStyles(styles)(Signin));
+export default withRouter(withStyles(styles)(SignInScreen));
