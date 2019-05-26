@@ -6,7 +6,7 @@ interface LaunchTitleProps {
 }
 const LaunchTitle: React.FC<LaunchTitleProps> = ({ subtitle }) => {
   return (
-    <React.Fragment>
+    <div style={{ textAlign: "center", width: "80%" }}>
       <Typography component="h1" variant="h5">
         REGASCO
       </Typography>
@@ -20,7 +20,7 @@ const LaunchTitle: React.FC<LaunchTitleProps> = ({ subtitle }) => {
           {subtitle}
         </Typography>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
