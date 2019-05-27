@@ -8,7 +8,7 @@ const LaunchTitle: React.FC<LaunchTitleProps> = ({ subtitle }) => {
   return (
     <div style={{ textAlign: "center", width: "80%" }}>
       <Typography component="h1" variant="h5">
-        REGASCO
+        COMPANY NAME
       </Typography>
       {subtitle && (
         <Typography
