@@ -8,6 +8,7 @@ import { Theme, createStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { RouteComponentProps, withRouter } from "react-router";
+import { Formik } from "formik";
 import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
 
@@ -45,6 +46,15 @@ const styles = (theme: Theme) =>
       width: "185px"
     }
   });
+  
+const defaultValues = {
+  firstName: '',
+  lastName: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmpassword: ''
+}
 
 const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   classes,
@@ -54,6 +64,18 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
     <LaunchContainer>
       <div className={classes.paper}>
         <LaunchTitle subtitle="Please complete to create your account" />
+        
+        <Formik
+        
+          initialValues={defaultValues}
+          
+          onSubmit={
+            (values, actions) => {
+              
+            }
+          }
+        />
+
         <form className={classes.form}>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
