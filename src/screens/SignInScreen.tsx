@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
-import { Formik, FormikProps, withFormik, FormikErrors, FormikActions, Field } from "formik";
+import { Formik, FormikActions } from "formik";
 import * as Yup from "yup";
 import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
@@ -43,133 +43,6 @@ interface FormValues {
   username: '',
   password: ''
 }
-const originalFields = (props: any & FormikProps<FormValues>) => {
-  const { handleChange, handleSubmit, errors, isSubmitting } = props;
-
-  return (
-  <form onSubmit={handleSubmit}>
-    <Grid container spacing={24}>
-      <Grid item xs={12} sm={12}>
-        <TextField
-          // required
-          onChange={handleChange}
-          id="username"
-          name="username"
-          label="Username"
-          fullWidth
-          autoComplete="username"
-        />
-        <div>{errors.username}</div>
-      </Grid>
-      <Grid item xs={12} sm={12}>
-        <TextField
-          // required
-          onChange={handleChange}
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          fullWidth
-          autoComplete="password"
-        />
-        <div>{errors.password}</div>
-      </Grid>
-    </Grid>
-
-    <Grid
-      container
-      item
-      xs={12}
-      direction="row"
-      justify="space-between"
-      alignItems="center"
-      spacing={24}
-    >
-      <Grid item>
-        <FormControlLabel
-          control={
-            <Checkbox color="primary" name="saveAddress" value="yes" />
-          }
-          label="Remember Me"
-        />
-      </Grid>
-      <Grid item>
-        <Typography
-          style={{ cursor: "pointer" }}
-          // onClick={() => history.push(`/forgot-password`)}
-        >
-          Forgot Password
-        </Typography>
-      </Grid>
-    </Grid>
-
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      alignItems="baseline"
-      spacing={24}
-    >
-      <Grid item>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={isSubmitting}
-        >
-          Login
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          type="button"
-          variant="outlined"
-          color="default"
-          style={{
-            color: "#3F51B5",
-            backgroundColor: "#FFFFFF",
-            outlineColor: "#3F51B5"
-          }}
-          // onClick={() => history.push(`/signup`)}
-        >
-          Sign up
-        </Button>
-      </Grid>
-    </Grid>
-    <Grid />
-  </form>
-  );
-}
-
-const MyForm = withFormik({
-  mapPropsToValues: () => ({
-    username: '',
-    password: ''
-  }),
-  
-  validate: (values) => {
-    
-    console.log(values);
-    
-    let errors: FormikErrors<FormValues> = {};
-    
-    if(values.username === '') {
-      errors.username = 'Username is required.';
-    }
-    
-    if(values.password === '') {
-      errors.password = 'Password is required.';
-    }
-
-    return errors;
-    
-  },
-  
-  handleSubmit: (values, actions) => {
-    console.log(values, actions);
-    // actions.setSubmitting(false);
-  }
-})(originalFields)
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -185,6 +58,11 @@ const defaultValues = {
   password: ''
 }
 
+interface defaultProps {
+  username: string;
+  password: string
+}
+
 
 const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   classes,
@@ -197,7 +75,7 @@ const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
           
           {/* Forms */}
           <Formik
-            initialValues={defaultValues}
+            initialValues={{username: '', password: ''}}
             
             {...history}
             
@@ -244,7 +122,7 @@ const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                         fullWidth
                         autoComplete="password"
                       />
-                      {errors.password ? <div>{errors.password}</div> : null}
+                      {errors.password ? <div style={{color: 'red'}}>{errors.password}</div> : null}
                     </Grid>
                   </Grid>
 
