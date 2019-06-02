@@ -53,14 +53,14 @@ const LoginSchema = Yup.object().shape({
     .required('Password required.')
 });
 
-const defaultValues = {
-  username: '',
-  password: ''
-}
-
 interface defaultProps {
   username: string;
   password: string
+}
+
+const defaultValues: defaultProps = {
+  username: '',
+  password: ''
 }
 
 
@@ -75,15 +75,17 @@ const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
           
           {/* Forms */}
           <Formik
-            initialValues={{username: '', password: ''}}
+            initialValues={defaultValues}
             
             {...history}
             
             validationSchema={LoginSchema}
 
+            validateOnChange={false}
+
             onSubmit={
-              (values: FormValues, actions: FormikActions<FormValues>) => {
-                console.log(values, actions)
+              (values: any, actions: FormikActions<any>) => {
+                console.log(values)
               actions.setSubmitting(false); // don't reload page
               }
             }
@@ -104,6 +106,7 @@ const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                     <Grid item xs={12} sm={12}>
                       <TextField
                         // required
+                        onChange={handleChange}
                         id="username"
                         name="username"
                         label="Username"
@@ -115,6 +118,7 @@ const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                     <Grid item xs={12} sm={12}>
                       <TextField
                         // required
+                        onChange={handleChange}
                         id="password"
                         name="password"
                         label="Password"

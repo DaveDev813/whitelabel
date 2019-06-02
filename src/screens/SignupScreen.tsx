@@ -54,7 +54,8 @@ const defaultValues = {
   username: '',
   email: '',
   password: '',
-  confirmpassword: ''
+  confirmpassword: '',
+  terms: false
 }
 
 const SignupSchema = Yup.object().shape({
@@ -76,7 +77,8 @@ const SignupSchema = Yup.object().shape({
   confirmpassword: Yup
     .string()
     .oneOf([Yup.ref('password'), null], 'Confirm password must match with password.')
-    .required('Confirm password required.')
+    .required('Confirm password required.'),
+    terms: Yup.boolean().oneOf([true],'Must accept terms and conditions.')
 })
 
 const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
@@ -92,12 +94,15 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
         
           initialValues={defaultValues}
           
-          onSubmit={(values) => {
+          onSubmit={(values, actions) => {
               console.log(values)
+              actions.setSubmitting(false); // don't reload page
             }
           }
 
           validationSchema={SignupSchema}
+
+          validateOnChange={false}
 
           render={
             ({
@@ -182,11 +187,12 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                   </Grid>
                   <Grid item xs={12} style={{ textAlign: "left" }}>
                     <FormControlLabel
+                      onChange={handleChange}
                       control={
-                        <Checkbox color="secondary" name="saveAddress" value="yes" />
+                        <Checkbox color="secondary" name="terms" value="" />
                       }
                       label="I agree with terms and conditions"
-                    />
+                    />{errors.terms ? <div style={{color: 'red'}}>{errors.terms}</div> : null}
                   </Grid>
                 </Grid>
                 <Button
