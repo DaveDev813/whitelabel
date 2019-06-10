@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Theme, createStyles } from "@material-ui/core";
@@ -11,7 +10,7 @@ import { Formik } from "formik";
 import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
 import * as Yup from "yup";
-import InputField from "../components/Forms/Input";
+import { CheckBox, InputField } from "../components/Forms/Input";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -76,7 +75,7 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
             actions.setSubmitting(false); // don't reload page
           }}
           validationSchema={SignupSchema}
-          validateOnChange={false}
+          validateOnChange={true}
           render={({ errors, handleChange, handleSubmit, isSubmitting }) => (
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={24}>
@@ -84,7 +83,7 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                   <InputField name="firstName" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <InputField fullWidth name="lastName" label="Last Name" />
+                  <InputField name="lastName" label="Last Name" />
                 </Grid>
                 <Grid item xs={12}>
                   <InputField fullWidth name="username" />
@@ -93,17 +92,22 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                   <InputField fullWidth name="email" />
                 </Grid>
                 <Grid item xs={12}>
-                  <InputField fullWidth name="password" />
+                  <InputField fullWidth name="password" type="password" />
                 </Grid>
                 <Grid item xs={12}>
                   <InputField
                     fullWidth
                     name="confirmpassword"
                     label="Confirm Password"
+                    type="password"
                   />
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "left" }}>
-                  <FormControlLabel
+                  <CheckBox
+                    name="terms"
+                    label="I agree with terms and conditions"
+                  />
+                  {/* <FormControlLabel
                     onChange={handleChange}
                     control={
                       <Checkbox color="secondary" name="terms" value="" />
@@ -112,7 +116,7 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
                   />
                   {errors.terms ? (
                     <div style={{ color: "red" }}>{errors.terms}</div>
-                  ) : null}
+                  ) : null} */}
                 </Grid>
               </Grid>
               <Button

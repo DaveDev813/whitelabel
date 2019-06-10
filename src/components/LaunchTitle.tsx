@@ -12,10 +12,13 @@ const LaunchTitle: React.FC<LaunchTitleProps> = ({ subtitle }) => {
       </Typography>
       {subtitle && (
         <Typography
-          style={{ marginTop: "12px" }}
           align="center"
           color="textSecondary"
           component="p"
+          style={{
+            marginTop: "12px",
+            marginBottom: "40px"
+          }}
         >
           {subtitle}
         </Typography>

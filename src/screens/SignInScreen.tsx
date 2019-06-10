@@ -15,7 +15,7 @@ import {
   createStyles,
   Theme
 } from "@material-ui/core";
-import InputField from "../components/Forms/Input";
+import { InputField } from "../components/Forms/Input";
 import { GridProps } from "@material-ui/core/Grid";
 
 const styles = (theme: Theme) =>
