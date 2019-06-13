@@ -1,4 +1,5 @@
 import Constants from "../constants";
+import jwt from "jsonwebtoken";
 
 export enum HttpProtocol {
   POST = "POST",
@@ -12,7 +13,10 @@ async function apiHelper(
   path: string,
   params: { [key: string]: any }
 ) {
+  // TODO: This should not be static
   const accessToken = "7c9de47e-ccb2-4064-a582-e76d08d0dcfe";
+  const appToken = "7c9de47e-ccb2-4064-a582-e76d08d0dcfe";
+
   let url = Constants.API_URL + path;
   let options: any = {
     method,
@@ -20,6 +24,11 @@ async function apiHelper(
       Authorization: "bearer " + accessToken
     }
   };
+
+  const payload = {
+    _d: jwt.sign(params, appToken)
+  };
+
   if (method === HttpProtocol.GET || method === HttpProtocol.DELETE) {
     const qs = Object.keys(params)
       .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
@@ -35,7 +44,7 @@ async function apiHelper(
     options = {
       ...options,
       headers,
-      body: JSON.stringify(params)
+      body: payload
     };
   }
 
