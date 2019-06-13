@@ -2,8 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { Theme, createStyles } from "@material-ui/core";
+import { Theme, Container, CssBaseline } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Formik } from "formik";
@@ -11,26 +10,22 @@ import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
 import * as Yup from "yup";
 import { CheckBox, InputField } from "../components/Forms/Input";
+import { makeStyles } from "@material-ui/core/styles";
 
-const styles = (theme: Theme) =>
-  createStyles({
-    paper: {
-      // margin: `${theme.spacing.unit * 8}px 20%`,
-      // display: "flex",
-      // flexDirection: "column",
-      // alignItems: "center",
-      // padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      //   .spacing.unit * 3}px`
-    },
-    form: {
-      // width: "100%", // Fix IE 11 issue.
-      // marginTop: theme.spacing.unit + 30
-    },
-    submit: {
-      // marginTop: theme.spacing.unit * 3,
-      // width: "185px"
-    }
-  });
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  form: {
+    width: "100%" // Fix IE 11 issue.
+  },
+  submit: {
+    marginTop: theme.spacing(3),
+    width: "185px"
+  }
+}));
 
 const defaultValues = {
   firstName: "",
@@ -59,10 +54,8 @@ const SignupSchema = Yup.object().shape({
   terms: Yup.boolean().oneOf([true], "Must accept terms and conditions.")
 });
 
-const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
-  classes,
-  history
-}) => {
+const SignupScreen: React.FC<RouteComponentProps> = ({ history }) => {
+  const classes = useStyles();
   return (
     <LaunchContainer>
       <div className={classes.paper}>
@@ -77,69 +70,62 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
           validationSchema={SignupSchema}
           validateOnChange={true}
           render={({ errors, handleChange, handleSubmit, isSubmitting }) => (
-            <form className={classes.form} onSubmit={handleSubmit}>
-              <Grid container spacing={10}>
-                <Grid item xs={12} sm={6}>
-                  <InputField name="firstName" />
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <form className={classes.form} onSubmit={handleSubmit}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6}>
+                    <InputField name="firstName" />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <InputField name="lastName" label="Last Name" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputField fullWidth name="username" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputField fullWidth name="email" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputField fullWidth name="password" type="password" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputField
+                      fullWidth
+                      name="confirmpassword"
+                      label="Confirm Password"
+                      type="password"
+                    />
+                  </Grid>
+                  <Grid item xs={12} style={{ textAlign: "left" }}>
+                    <CheckBox
+                      name="terms"
+                      label="I agree with terms and conditions"
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <InputField name="lastName" label="Last Name" />
-                </Grid>
-                <Grid item xs={12}>
-                  <InputField fullWidth name="username" />
-                </Grid>
-                <Grid item xs={12}>
-                  <InputField fullWidth name="email" />
-                </Grid>
-                <Grid item xs={12}>
-                  <InputField fullWidth name="password" type="password" />
-                </Grid>
-                <Grid item xs={12}>
-                  <InputField
-                    fullWidth
-                    name="confirmpassword"
-                    label="Confirm Password"
-                    type="password"
-                  />
-                </Grid>
-                <Grid item xs={12} style={{ textAlign: "left" }}>
-                  <CheckBox
-                    name="terms"
-                    label="I agree with terms and conditions"
-                  />
-                  {/* <FormControlLabel
-                    onChange={handleChange}
-                    control={
-                      <Checkbox color="secondary" name="terms" value="" />
-                    }
-                    label="I agree with terms and conditions"
-                  />
-                  {errors.terms ? (
-                    <div style={{ color: "red" }}>{errors.terms}</div>
-                  ) : null} */}
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={isSubmitting}
-              >
-                Sign up
-              </Button>
-              <Typography
-                className={classes.subHeader}
-                align="center"
-                color="textSecondary"
-                component="p"
-                style={{ marginTop: "30px", cursor: "pointer" }}
-                onClick={() => history.push(`/signin`)}
-              >
-                Already have an account? Sign in.
-              </Typography>
-            </form>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  disabled={isSubmitting}
+                >
+                  Sign up
+                </Button>
+                <Typography
+                  // className={classes.subHeader}
+                  align="center"
+                  color="textSecondary"
+                  component="p"
+                  style={{ marginTop: "30px", cursor: "pointer" }}
+                  onClick={() => history.push(`/signin`)}
+                >
+                  Already have an account? Sign in.
+                </Typography>
+              </form>
+            </Container>
           )}
         />
       </div>
@@ -147,4 +133,4 @@ const SignupScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
   );
 };
 
-export default withRouter(withStyles(styles)(SignupScreen));
+export default withRouter(SignupScreen);
