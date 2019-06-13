@@ -97,6 +97,7 @@ const SignInScreen: React.FC<RouteComponentProps> = ({ history }) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={() => history.push(`/dashboard`)}
                       >
                         Sign In
                       </Button>
