@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid, { GridProps } from "@material-ui/core/Grid";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import * as Yup from "yup";
 
@@ -17,7 +17,7 @@ import LaunchTitle from "../components/LaunchTitle";
 import { Formik, FormikActions } from "formik";
 import { InputField } from "../components/Forms/Input";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   "@global": {
     body: {
       backgroundColor: theme.palette.common.white
@@ -51,11 +51,6 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Password required.")
 });
 
-const onSubmit = (values: any, actions: FormikActions<any>) => {
-  console.log(values);
-  actions.setSubmitting(false); // don't reload page
-};
-
 const gridContainerProps: GridProps = {
   direction: "row",
   justify: "space-between",
@@ -64,6 +59,11 @@ const gridContainerProps: GridProps = {
 
 const SignInScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const classes = useStyles();
+  const onSubmit = (values: any, actions: FormikActions<any>) => {
+    console.log(values);
+    actions.setSubmitting(false);
+    history.push(`/dashboard`); // don't reload page
+  };
   return (
     <LaunchContainer>
       <div className={classes.paper}>
@@ -97,7 +97,6 @@ const SignInScreen: React.FC<RouteComponentProps> = ({ history }) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={() => history.push(`/dashboard`)}
                       >
                         Sign In
                       </Button>
