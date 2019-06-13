@@ -14,7 +14,6 @@ const LeftDiv = styled.img`
 const RightDiv = styled.div`
   width: 50vw;
   height: 100vh;
-  padding: 10%;
 `;
 
 const LaunchContainer: React.FC = (props: any) => {

@@ -1,204 +1,139 @@
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
-import { Formik, FormikActions } from "formik";
+
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid, { GridProps } from "@material-ui/core/Grid";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 import * as Yup from "yup";
+
+import { RouteComponentProps, withRouter } from "react-router";
 import LaunchContainer from "../containers/LaunchContainer";
 import LaunchTitle from "../components/LaunchTitle";
+import { Formik, FormikActions } from "formik";
+import { InputField } from "../components/Forms/Input";
 
-import {
-  Grid,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Typography,
-  withStyles,
-  createStyles,
-  Theme
-} from "@material-ui/core";
-
-const styles = (theme: Theme) =>
-  createStyles({
-    paper: {
-      margin: `${theme.spacing.unit * 8}px 20%`,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-        .spacing.unit * 3}px`
-    },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing.unit + 30
-    },
-    button: {
-      width: 185
-    },
-    forgot_password: {
-      color: ""
+const useStyles = makeStyles(theme => ({
+  "@global": {
+    body: {
+      backgroundColor: theme.palette.common.white
     }
-  });
-
-interface FormValues {
-  username: '',
-  password: ''
-}
+  },
+  paper: {
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    width: "150px"
+  }
+}));
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
-    .min(2, 'Username too short.')
-    .max(20, 'Username too long.')
-    .required('Username required'),
-  password: Yup.string()
-    .required('Password required.')
+    .min(2, "Username too short.")
+    .max(20, "Username too long.")
+    .required("Username required"),
+  password: Yup.string().required("Password required.")
 });
 
-interface defaultProps {
-  username: string;
-  password: string
-}
+const onSubmit = (values: any, actions: FormikActions<any>) => {
+  console.log(values);
+  actions.setSubmitting(false); // don't reload page
+};
 
-const defaultValues: defaultProps = {
-  username: '',
-  password: ''
-}
+const gridContainerProps: GridProps = {
+  direction: "row",
+  justify: "space-between",
+  alignItems: "center"
+};
 
-
-const SignInScreen: React.FC<{ classes: any } & RouteComponentProps> = ({
-  classes,
-  history
-}) => {
+const SignInScreen: React.FC<RouteComponentProps> = ({ history }) => {
+  const classes = useStyles();
   return (
     <LaunchContainer>
-        <div className={classes.paper}>
-          <LaunchTitle subtitle="Welcome back! Please login to your account." />
-          
-          {/* Forms */}
-          <Formik
-            initialValues={defaultValues}
-            
-            {...history}
-            
-            validationSchema={LoginSchema}
+      <div className={classes.paper}>
+        <LaunchTitle subtitle="Welcome back! Please login to your account." />
+        <Formik
+          initialValues={{
+            username: "",
+            password: ""
+          }}
+          {...history}
+          validationSchema={LoginSchema}
+          validateOnChange={true}
+          onSubmit={onSubmit}
+        >
+          {({ handleSubmit }: any) => (
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <form
+                  className={classes.form}
+                  noValidate
+                  onSubmit={handleSubmit}
+                >
+                  <InputField name="username" label="Username" />
+                  <InputField name="password" label="Password" />
 
-            validateOnChange={false}
-
-            onSubmit={
-              (values: any, actions: FormikActions<any>) => {
-                console.log(values)
-              actions.setSubmitting(false); // don't reload page
-              }
-            }
-            
-            render={
-              ({
-                values,
-                errors,
-                status,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                isSubmitting
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12}>
-                      <TextField
-                        // required
-                        onChange={handleChange}
-                        id="username"
-                        name="username"
-                        label="Username"
-                        fullWidth
-                        autoComplete="username"
-                      />
-                      {errors.username ? <div style={{color: 'red'}}>{errors.username}</div> : null}
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      <TextField
-                        // required
-                        onChange={handleChange}
-                        id="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        autoComplete="password"
-                      />
-                      {errors.password ? <div style={{color: 'red'}}>{errors.password}</div> : null}
-                    </Grid>
-                  </Grid>
-
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
-                    spacing={24}
-                  >
-                    <Grid item>
-                      <FormControlLabel
-                        control={
-                          <Checkbox color="primary" name="saveAddress" value="yes" />
-                        }
-                        label="Remember Me"
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Typography
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push(`/forgot-password`)}
-                      >
-                        Forgot Password
-                      </Typography>
-                    </Grid>
-                  </Grid>
-
-                  <Grid
-                    container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="baseline"
-                    spacing={24}
-                  >
+                  <Grid container {...gridContainerProps}>
                     <Grid item>
                       <Button
                         type="submit"
                         variant="contained"
                         color="primary"
-                        disabled={isSubmitting}
+                        className={classes.submit}
                       >
-                        Login
+                        Sign In
                       </Button>
                     </Grid>
                     <Grid item>
                       <Button
                         type="button"
-                        variant="outlined"
-                        color="default"
-                        style={{
-                          color: "#3F51B5",
-                          backgroundColor: "#FFFFFF",
-                          outlineColor: "#3F51B5"
-                        }}
                         onClick={() => history.push(`/signup`)}
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
                       >
-                        Sign up
+                        Sign Up
                       </Button>
                     </Grid>
                   </Grid>
-                  <Grid />
+                  <Grid container {...gridContainerProps}>
+                    <Grid item>
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Link href="#" variant="body2">
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                  </Grid>
                 </form>
-              )
-            }
-          />
-        </div>
- 
+              </div>
+            </Container>
+          )}
+        </Formik>
+      </div>
     </LaunchContainer>
   );
 };
 
-export default withRouter(withStyles(styles)(SignInScreen));
+export default withRouter(SignInScreen);
