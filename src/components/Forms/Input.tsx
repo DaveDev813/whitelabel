@@ -3,20 +3,18 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Input, { InputProps } from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import uniqid from "uniqid";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { Field } from "formik";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 import { FormControlLabelProps } from "@material-ui/core/FormControlLabel";
 
-const StyledLabel = styled(InputLabel)({
-  textTransform: "capitalize"
-});
+// const StyledLabel = styled(InputLabel)({
+//   textTransform: "capitalize"
+// });
 
 export const InputField: React.FC<
   InputProps & { name: string; label?: string }
 > = ({ type, name, label, ...props }) => {
-  const formId: string = uniqid();
   return (
     <Field
       name={name}
@@ -24,11 +22,13 @@ export const InputField: React.FC<
         const hasError = errors[name] ? true : false;
         return (
           <FormControl error={hasError} fullWidth>
-            <StyledLabel htmlFor={formId}>{label ? label : name}</StyledLabel>
+            <InputLabel style={{ textTransform: "capitalize" }}>
+              {label ? label : name}
+            </InputLabel>
             <Input
               {...props}
               name={name}
-              id={`${name}_${formId}`}
+              id={`${name}`}
               onChange={handleChange}
               aria-describedby="component-error-text"
               type={type ? type : "input"}

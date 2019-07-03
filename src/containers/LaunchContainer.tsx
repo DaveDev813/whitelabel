@@ -1,27 +1,39 @@
 import React from "react";
-import styled from "styled-components";
+import { CssBaseline, Grid, Theme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const LeftDiv = styled.img`
-  width: 50vw;
-  height: 100vh;
-`;
-
-const RightDiv = styled.div`
-  width: 50vw;
-  height: 100vh;
-`;
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    height: "100vh"
+  },
+  image: {
+    backgroundImage: `url(${require("../assets/images/launchBG.png")})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  }
+}));
 
 const LaunchContainer: React.FC = (props: any) => {
+  const classes = useStyles();
   return (
-    <Container>
-      <LeftDiv src={require("../assets/images/launchBG.png")} />
-      <RightDiv>{props.children}</RightDiv>
-    </Container>
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5}>
+        <div className={classes.paper}>{props.children}</div>
+      </Grid>
+    </Grid>
   );
 };
 
